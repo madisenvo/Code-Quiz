@@ -1,0 +1,15 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.scores {
+    color: rgb(239, 90, 239);
+    display: inline;
+    text-align: left;
+    justify-content: space-between;
+}
+
+.time {
+    display: inline;
+    text-align: right;
+    justify-content: space-between;
+}
