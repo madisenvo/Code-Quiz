@@ -11,8 +11,24 @@
 <body> 
     <header>
         <h3 class = "scores">View High Scores</h3>
-        <h3 class = "time">Time:</h3>
+        <h3 class = "time" style="text-align:right;"></h3>
+        <div id="main"></div>
     </header>
+
+    <div class = "container"> 
+        <div id="question-container" class="hide">
+            <div id="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">1. </button>
+                <button class="btn">2. </button>
+                <button class="btn">3. </button>
+                <button class="btn">4. </button>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn">Start</button>
+        </div>
+    </div>
 
 
     <script src="./script.js"></script>
