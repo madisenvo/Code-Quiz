@@ -3,53 +3,59 @@ const questionContainerEl = document.getElementById('question-container')
 const landingPage = document.getElementById('landing')
 const questionEl = document.getElementById('question')
 const answerButtonsEl = document.getElementById('answer-buttons')
+const saveScoreEl = document.getElementById('save-score')
+const viewScores = document.getElementById('scores')
+const highScores = document.getElementById('high-scores')
 
 let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
+viewScores.addEventListener('click', showScores)
+
+
 
 const questions = [
   {
     question: 'String values must be enclosed within _____ when being assigned to variables.',
     answers: [
-      {text: '1. commas', correct: false},
-      {text: '2. curly brackets', correct: false},
-      {text: '3. quotes', correct: true},
-      {text: '4. parenthesis', correct: false}
+      {text: '1. Commas', correct: false},
+      {text: '2. Curly brackets', correct: false},
+      {text: '3. Quotes', correct: true},
+      {text: '4. Parenthesis', correct: false}
     ]
   },
   {
     question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
     answers: [
       {text: '1. JavaScript', correct: false},
-      {text: '2. terminal/bash', correct: false},
-      {text: '3. for loops', correct: false},
-      {text: '4. console.log', correct: true},
+      {text: '2. Terminal/bash', correct: false},
+      {text: '3. For loops', correct: false},
+      {text: '4. Console.log', correct: true},
     ]
   },
   {
     question: 'Commonly used data types do NOT include:',
     answers: [
-      {text: '1. strings', correct: false},
-      {text: '2. booleans', correct: false},
-      {text: '3. alerts', correct: true},
-      {text: '4. numbers', correct: true},
+      {text: '1. Strings', correct: false},
+      {text: '2. Booleans', correct: false},
+      {text: '3. Alerts', correct: true},
+      {text: '4. Numbers', correct: false},
     ]
   },
   {
     question: 'The condition in an if/else statement is enclosed with ______.',
     answers: [
-      {text: '1. quotes', correct: false},
-      {text: '2. curly brackets', correct: false},
-      {text: '3. parenthesis', correct: true},
-      {text: '4. square brackets', correct: true},
+      {text: '1. Quotes', correct: false},
+      {text: '2. Curly brackets', correct: false},
+      {text: '3. Parenthesis', correct: true},
+      {text: '4. Square brackets', correct: false},
     ]
   }
 ]
 
 function startGame(){
-  landingPage.classList.add('hide');
-  questionContainerEl.classList.remove('hide');
+  landingPage.classList.add('hide')
+  questionContainerEl.classList.remove('hide')
   shuffledQuestions = questions.sort(() => Math.random() - .5)
   currentQuestionIndex = 0
   setNextQuestion()
@@ -93,6 +99,7 @@ function setStatusClass(element, correct){
     element.classList.add('wrong')
   }
 }
+
 function selectAnswer(e){
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
@@ -101,10 +108,22 @@ function selectAnswer(e){
     setStatusClass(button, button.dataset.correct)
   })
 
+// and this to following if when timer works && secondsLeft !== 0
+  if(shuffledQuestions.length > currentQuestionIndex + 1 ){
+    currentQuestionIndex++
+    setNextQuestion()
+  } else{
+    questionContainerEl.classList.add('hide')
+    saveScoreEl.classList.remove('hide')
+  }
 }
 
 
-
+function showScores(){
+  questionContainerEl.classList.add('hide')
+  landingPage.classList.add('hide')
+  highScores.classList.remove('hide')
+}
 
 
 

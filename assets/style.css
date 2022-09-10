@@ -32,12 +32,24 @@ body {
     gap: 10px;
     margin: 20px 0;
 }
-
-.btn{
+#start-btn {
     color: white;
+    font-size: medium;
     background-color:rgb(85, 0, 221);
     border-radius: 5px;
     padding: 5px 10px;
+    text-align: left;
+    width: fit-content;
+}
+
+.btn{
+    color: white;
+    font-size: medium;
+    background-color:rgb(85, 0, 221);
+    border-radius: 5px;
+    padding: 5px 10px;
+    text-align: left;
+    width: 24%;
 }
 
 .btn:hover{
@@ -45,17 +57,13 @@ body {
     background-color:rgb(186, 133, 240) ;
 }
 
-.scores {
+#scores {
     color: rgb(186, 133, 240);
     display: inline;
     text-align: left;
     justify-content: space-between;
 }
 
-
-#start-btn{
-
-}
 
 .hide{
     display:none;
