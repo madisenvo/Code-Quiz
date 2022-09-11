@@ -8,6 +8,7 @@ const viewScores = document.getElementById('view-scores')
 const highScores = document.getElementById('high-scores')
 const goBackBtnEl = document.getElementById('go-back')
 const clearBtnEl = document.getElementById('clear-scores')
+const submitBtn = document.getElementById('submitBtn')
 const timerEl = document.getElementById('time')
 var timeLeft = 10
 var secondsElapsed = 0
@@ -148,6 +149,16 @@ goBackBtnEl.addEventListener('click', function(){
   highScores.classList.add('hide')
   landingPage.classList.remove('hide')
   startButton.classList.remove('hide')
+})
+
+submitBtn.addEventListener('click', function(){
+  console.log('Initials: ', initialsEl.val());
+  $('input[type="text"]').val('');
+
+  var li = document.createElement('li');
+  var userScores = document.createTextNode(initialsEl);
+  li.appendChild(userScores);
+  document.getElementById('userList').appendChild(li);
 })
 
 // //Clears saved scores from local storage

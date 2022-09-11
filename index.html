@@ -39,7 +39,7 @@
             <div>
                 <label for="initials">Enter initials:</label>
                 <input type="text" class="form-input" name="initials"/>
-                <button class="btn btn-block btn-danger">Submit</button>
+                <button id="submitBtn">Submit</button>
             </div>
         </div>
     </div>
@@ -48,7 +48,8 @@
     <div>
         <div class="hide" id ="high-scores">
             <h1>High Scores</h1>
-            <!-- something showing stored scores -->
+            <ol id="userList">
+            </ol>
             <button id="go-back">Go back</button>
             <button id="clear-scores">Clear high scores</button>
         </div>

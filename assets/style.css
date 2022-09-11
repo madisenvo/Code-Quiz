@@ -83,6 +83,15 @@ body {
     width: fit-content;
 }
 
+#submitBtn{
+    color: white;
+    font-size: medium;
+    background-color:rgb(85, 0, 221);
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: fit-content;
+}
+
 .hide{
     display:none;
 }
