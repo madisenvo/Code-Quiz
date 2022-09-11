@@ -7,9 +7,11 @@ const saveScoreEl = document.getElementById('save-score')
 const viewScores = document.getElementById('scores')
 const highScores = document.getElementById('high-scores')
 
+
 let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
+startButton.addEventListener('click', startTimer)
 viewScores.addEventListener('click', showScores)
 
 
@@ -100,6 +102,18 @@ function setStatusClass(element, correct){
   }
 }
 
+function displayMessage(m) {
+  let messageHr = document.createElement("hr");
+  let messageEl = document.createElement("div");
+  messageEl.textContent = m;
+  document.querySelector(".container").appendChild(messageHr);
+  document.querySelector(".container").appendChild(messageEl);
+  setTimeout(function () {
+          messageHr.remove();
+          messageEl.remove();
+  }, 2000);
+}
+
 function selectAnswer(e){
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
@@ -108,13 +122,14 @@ function selectAnswer(e){
     setStatusClass(button, button.dataset.correct)
   })
 
-// and this to following if when timer works && secondsLeft !== 0
-  if(shuffledQuestions.length > currentQuestionIndex + 1 ){
+
+  if(shuffledQuestions.length > currentQuestionIndex + 1){
     currentQuestionIndex++
     setNextQuestion()
   } else{
     questionContainerEl.classList.add('hide')
     saveScoreEl.classList.remove('hide')
+    stopTimer()
   }
 }
 
@@ -127,40 +142,20 @@ function showScores(){
 
 
 
+const timerEl = document.getElementById('time')
+var timeLeft = 30;
+var secondsElapsed = 0;
 
+//stops timer
+function stopTimer() {
+  clearInterval(interval);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // Selects element by class
-// var timeEl = document.querySelector(".time");
-
-// var secondsLeft = 60;
-
-// function setTime() {
-//   // Sets interval in variable
-//   var timerInterval = setInterval(function() {
-//     secondsLeft--;
-//     timeEl.textContent = "Time: " + secondsLeft;
-
-//     if(secondsLeft === 0) {
-//       clearInterval(timerInterval);
-//     }
-//   }, 1000);
-// }
-
+//starts and updates timer
+function startTimer() {
+    timerEl.textContent = timeLeft;
+    interval = setInterval(function () {
+        secondsElapsed++;
+        timerEl.textContent = timeLeft - secondsElapsed;
+      }, 1000);
+}
