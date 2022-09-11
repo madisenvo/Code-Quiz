@@ -8,7 +8,10 @@ const viewScores = document.getElementById('view-scores')
 const highScores = document.getElementById('high-scores')
 const goBackBtnEl = document.getElementById('go-back')
 const clearBtnEl = document.getElementById('clear-scores')
-
+const timerEl = document.getElementById('time')
+var timeLeft = 10
+var secondsElapsed = 0
+var initialsEl = $('input[name="initials"]');
 
 let shuffledQuestions, currentQuestionIndex
 
@@ -104,44 +107,7 @@ function setStatusClass(element, correct){
   }
 }
 
-function selectAnswer(e){
-  const selectedButton = e.target
-  const correct = selectedButton.dataset.correct
-  setStatusClass(document.body, correct)
-  Array.from(answerButtonsEl.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct)
-  })
-
-
-  if(shuffledQuestions.length > currentQuestionIndex + 1){
-    currentQuestionIndex++
-    setNextQuestion()
-  } else{
-    questionContainerEl.classList.add('hide')
-    saveScoreEl.classList.remove('hide')
-    stopTimer()
-  }
-}
-
-
-function showScores(){
-  questionContainerEl.classList.add('hide')
-  landingPage.classList.add('hide')
-  highScores.classList.remove('hide')
-}
-
-
-
-const timerEl = document.getElementById('time')
-var timeLeft = 30;
-var secondsElapsed = 0;
-
-//stops timer
-function stopTimer() {
-  clearInterval(interval);
-}
-
-//starts and updates timer
+//timer
 function startTimer() {
   timerEl.textContent = timeLeft;
   interval = setInterval(function () {
@@ -149,10 +115,39 @@ function startTimer() {
       timerEl.textContent = timeLeft - secondsElapsed;
     }, 1000);
 }
+//stops timer
+function stopTimer() {
+  clearInterval(interval);
+}
+
+function selectAnswer(e){
+  const selectedButton = e.target
+  const correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+  Array.from(answerButtonsEl.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct)
+  })
+  if(shuffledQuestions.length > currentQuestionIndex + 1){
+    currentQuestionIndex++
+    setNextQuestion()
+  } else{
+    stopTimer()
+    questionContainerEl.classList.add('hide')
+    saveScoreEl.classList.remove('hide')
+  }
+}
+
+function showScores(){
+  questionContainerEl.classList.add('hide')
+  saveScoreEl.classList.add('hide')
+  landingPage.classList.add('hide')
+  highScores.classList.remove('hide')
+}
 
 goBackBtnEl.addEventListener('click', function(){
   highScores.classList.add('hide')
   landingPage.classList.remove('hide')
+  startButton.classList.remove('hide')
 })
 
 // //Clears saved scores from local storage
