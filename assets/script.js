@@ -4,8 +4,10 @@ const landingPage = document.getElementById('landing')
 const questionEl = document.getElementById('question')
 const answerButtonsEl = document.getElementById('answer-buttons')
 const saveScoreEl = document.getElementById('save-score')
-const viewScores = document.getElementById('scores')
+const viewScores = document.getElementById('view-scores')
 const highScores = document.getElementById('high-scores')
+const goBackBtnEl = document.getElementById('go-back')
+const clearBtnEl = document.getElementById('clear-scores')
 
 
 let shuffledQuestions, currentQuestionIndex
@@ -102,18 +104,6 @@ function setStatusClass(element, correct){
   }
 }
 
-function displayMessage(m) {
-  let messageHr = document.createElement("hr");
-  let messageEl = document.createElement("div");
-  messageEl.textContent = m;
-  document.querySelector(".container").appendChild(messageHr);
-  document.querySelector(".container").appendChild(messageEl);
-  setTimeout(function () {
-          messageHr.remove();
-          messageEl.remove();
-  }, 2000);
-}
-
 function selectAnswer(e){
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
@@ -153,9 +143,21 @@ function stopTimer() {
 
 //starts and updates timer
 function startTimer() {
-    timerEl.textContent = timeLeft;
-    interval = setInterval(function () {
-        secondsElapsed++;
-        timerEl.textContent = timeLeft - secondsElapsed;
-      }, 1000);
+  timerEl.textContent = timeLeft;
+  interval = setInterval(function () {
+      secondsElapsed++;
+      timerEl.textContent = timeLeft - secondsElapsed;
+    }, 1000);
 }
+
+goBackBtnEl.addEventListener('click', function(){
+  highScores.classList.add('hide')
+  landingPage.classList.remove('hide')
+})
+
+// //Clears saved scores from local storage
+// clearScoresBtnEl.addEventListener("click", function () {
+//   highScores = [];
+//   localStorage.setItem("scores", JSON.stringify(highScores));
+//   renderHighScores();
+// });

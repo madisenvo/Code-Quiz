@@ -57,13 +57,31 @@ body {
     background-color:rgb(186, 133, 240) ;
 }
 
-#scores {
+#view-scores {
     color: rgb(186, 133, 240);
     display: inline;
     text-align: left;
     justify-content: space-between;
 }
 
+
+#go-back{
+    color: white;
+    font-size: medium;
+    background-color:rgb(85, 0, 221);
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: fit-content;
+}
+
+#clear-scores{
+    color: white;
+    font-size: medium;
+    background-color:rgb(85, 0, 221);
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: fit-content;
+}
 
 .hide{
     display:none;
