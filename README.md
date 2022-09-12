@@ -4,7 +4,7 @@
 
 ## Description
   
-
+This timed quiz allows a user to test their code knowledge with multiple-choice questions and gives them the ability to save their initials and scores. 
 
 ## Usage
 
