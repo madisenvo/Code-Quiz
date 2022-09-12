@@ -20,11 +20,11 @@ var initialsEl = document.getElementById('initials-input').value
 var currentScore = 0
 let shuffledQuestions, currentQuestionIndex
 
-// button events
-// startButton.addEventListener('click', startGame)
-// startButton.addEventListener('click', startTimer)
+
+// shows high scores when "view high scores" is clicked
 viewScores.addEventListener('click', showScores)
 
+// adds clicke event to start button & resets timer
 startButton.addEventListener('click', function(){
   startGame();
   startTimer();
@@ -72,7 +72,7 @@ const questions = [
   }
 ]
 
-// shows a randomly selected question
+// shuffles and shows question
 function startGame(){
   landingPage.classList.add('hide')
   questionContainerEl.classList.remove('hide')
@@ -105,7 +105,7 @@ function resetState(){
   }
 }
 
-// presents next question
+// presents randomized question
 function setNextQuestion(){
   resetState()
   showQuestion(shuffledQuestions[currentQuestionIndex]);
@@ -118,6 +118,7 @@ function clearStatusClass(element){
   element.classList.remove('wrong')
 }
 
+// gives answer chosen a correct or wrong class
 function setStatusClass(element, correct){
   clearStatusClass(element)
   if (correct){
@@ -141,7 +142,7 @@ function stopTimer() {
   clearInterval(interval);
 }
 
-
+// shows final score
 function scoresPage(){
   questionContainerEl.classList.add('hide')
   correctAnswer.classList.add('hide')
@@ -150,6 +151,7 @@ function scoresPage(){
   finalScore.textContent = currentScore
 }
 
+// targets selected answer, shows correct/wrong message, adds points for a correct selection, subtracts time for incorrect selection, continues or stops quiz
 function selectAnswer(e){
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
@@ -179,7 +181,7 @@ function selectAnswer(e){
 }
 
 
-
+// shows list of user scores
 function showScores(){
   questionContainerEl.classList.add('hide')
   saveScoreEl.classList.add('hide')
@@ -189,6 +191,7 @@ function showScores(){
   highScores.classList.remove('hide')
 }
 
+// creates button functionality that takes user to start of quiz
 goBackBtnEl.addEventListener('click', function(){
   currentScore = 0;
   highScores.classList.add('hide');
@@ -197,7 +200,7 @@ goBackBtnEl.addEventListener('click', function(){
 })
 
 
-
+// click of button adds user initials and score to list
 submitBtn.addEventListener('click', function(){
   var yourScore = document.getElementById('initials-input').value + ' ' + currentScore;
 
@@ -212,7 +215,7 @@ submitBtn.addEventListener('click', function(){
   $('input[type="text"]').val("");
 })
 
-//Clears scores from local storage
+//Clears scores from high scores list
 clearBtnEl.addEventListener("click", function () {
   document.getElementById("userList").innerHTML = '';
 });

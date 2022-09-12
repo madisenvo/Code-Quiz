@@ -1,8 +1,9 @@
+/* sets font */
 *, *::before, *::after {
-    box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+/* formats body */
 body {
     padding: 0;
     margin:0;
@@ -11,6 +12,7 @@ body {
     height: 100vh;
 }
 
+/* formats questions and answer container */
 .container {
     padding: 0;
     margin: 0;
@@ -22,16 +24,19 @@ body {
     align-items: center;
 }
 
+/* sets question font size */
 #question{
     font-size: 1.5rem;
 }
 
-
+/* formats display of buttons */
 .btn-grid{
     display: grid;
     gap: 10px;
     margin: 20px 0;
 }
+
+/* formats start button */
 #start-btn {
     color: white;
     font-size: medium;
@@ -42,6 +47,7 @@ body {
     width: fit-content;
 }
 
+/* general button formatting */
 .btn{
     color: white;
     font-size: medium;
@@ -52,11 +58,13 @@ body {
     width: 24%;
 }
 
+/* sets hover cursor and color */
 .btn:hover{
     cursor: pointer;
     background-color:rgb(186, 133, 240) ;
 }
 
+/* formats view high scores */
 #view-scores {
     color: rgb(186, 133, 240);
     display: inline;
@@ -64,7 +72,7 @@ body {
     justify-content: space-between;
 }
 
-
+/* formats go back button */
 #go-back{
     color: white;
     font-size: medium;
@@ -74,6 +82,7 @@ body {
     width: fit-content;
 }
 
+/* formats clear scores button */
 #clear-scores{
     color: white;
     font-size: medium;
@@ -83,6 +92,7 @@ body {
     width: fit-content;
 }
 
+/* formats submit button */
 #submitBtn{
     color: white;
     font-size: medium;
@@ -92,16 +102,19 @@ body {
     width: fit-content;
 }
 
+/* hide class */
 .hide{
     display:none;
 }
 
+/* formats correct message */
 #correct-answer{
     justify-content: center;
     font-size: xx-large;
     color: green;
 }
 
+/* formats wrong message */
 #wrong-answer{
     justify-content: center;
     font-size: xx-large;
