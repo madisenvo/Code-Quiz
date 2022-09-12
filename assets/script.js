@@ -10,10 +10,12 @@ const goBackBtnEl = document.getElementById('go-back')
 const clearBtnEl = document.getElementById('clear-scores')
 const submitBtn = document.getElementById('submitBtn')
 const timerEl = document.getElementById('time')
+const wrongAnswer = document.getElementById('wrong-answer')
+const correctAnswer = document.getElementById('correct-answer')
 var timeLeft = 10
 var secondsElapsed = 0
 var initialsEl = $('input[name="initials"]');
-
+var currentScore = 0
 let shuffledQuestions, currentQuestionIndex
 
 startButton.addEventListener('click', startGame)
@@ -75,8 +77,10 @@ function showQuestion(question){
     const button = document.createElement('button')
     button.innerText = answer.text
     button.classList.add('btn')
+
     if (answer.correct){
       button.dataset.correct = answer.correct
+      console.log(answer.correct)
     }
     button.addEventListener('click', selectAnswer)
     answerButtonsEl.appendChild(button)
@@ -128,20 +132,38 @@ function selectAnswer(e){
   Array.from(answerButtonsEl.children).forEach(button => {
     setStatusClass(button, button.dataset.correct)
   })
+
+  if(correct){
+    currentScore ++
+    console.log(currentScore)
+    correctAnswer.classList.remove('hide')
+    wrongAnswer.classList.add('hide')
+  }else{
+    wrongAnswer.classList.remove('hide')
+    correctAnswer.classList.add('hide')
+  // add something to subtract from timer
+  }
+  
   if(shuffledQuestions.length > currentQuestionIndex + 1){
     currentQuestionIndex++
     setNextQuestion()
   } else{
     stopTimer()
     questionContainerEl.classList.add('hide')
+    correctAnswer.classList.add('hide')
+    wrongAnswer.classList.add('hide')
     saveScoreEl.classList.remove('hide')
   }
 }
+
+
 
 function showScores(){
   questionContainerEl.classList.add('hide')
   saveScoreEl.classList.add('hide')
   landingPage.classList.add('hide')
+  correctAnswer.classList.add('hide')
+  wrongAnswer.classList.add('hide')
   highScores.classList.remove('hide')
 }
 
@@ -152,18 +174,16 @@ goBackBtnEl.addEventListener('click', function(){
 })
 
 submitBtn.addEventListener('click', function(){
-  console.log('Initials: ', initialsEl.val());
+
   $('input[type="text"]').val('');
 
   var li = document.createElement('li');
   var userScores = document.createTextNode(initialsEl);
   li.appendChild(userScores);
+  console.log(JSON.stringify(userScores));
   document.getElementById('userList').appendChild(li);
 })
 
 // //Clears saved scores from local storage
-// clearScoresBtnEl.addEventListener("click", function () {
-//   highScores = [];
-//   localStorage.setItem("scores", JSON.stringify(highScores));
-//   renderHighScores();
+// clearBtnEl.addEventListener("click", function () {
 // });

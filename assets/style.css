@@ -96,3 +96,14 @@ body {
     display:none;
 }
 
+#correct-answer{
+    justify-content: center;
+    font-size: xx-large;
+    color: green;
+}
+
+#wrong-answer{
+    justify-content: center;
+    font-size: xx-large;
+    color: red;
+}
