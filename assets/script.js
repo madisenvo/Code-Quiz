@@ -1,3 +1,4 @@
+// variables defined
 const startButton = document.getElementById("start-btn")
 const questionContainerEl = document.getElementById('question-container')
 const landingPage = document.getElementById('landing')
@@ -14,17 +15,24 @@ const wrongAnswer = document.getElementById('wrong-answer')
 const correctAnswer = document.getElementById('correct-answer')
 const finalScore = document.getElementById('score')
 var timeLeft = 60
-var secondsElapsed = 0
-var initialsEl = $('input[name="initials"]');
+var timeElapsed = 0
+var initialsEl = document.getElementById('initials-input').value
 var currentScore = 0
 let shuffledQuestions, currentQuestionIndex
 
-startButton.addEventListener('click', startGame)
-startButton.addEventListener('click', startTimer)
+// button events
+// startButton.addEventListener('click', startGame)
+// startButton.addEventListener('click', startTimer)
 viewScores.addEventListener('click', showScores)
 
+startButton.addEventListener('click', function(){
+  startGame();
+  startTimer();
+  timeLeft = 60;
+  timeElapsed = 0;
+})
 
-
+// questions for the quiz
 const questions = [
   {
     question: 'String values must be enclosed within _____ when being assigned to variables.',
@@ -64,6 +72,7 @@ const questions = [
   }
 ]
 
+// shows a randomly selected question
 function startGame(){
   landingPage.classList.add('hide')
   questionContainerEl.classList.remove('hide')
@@ -72,6 +81,7 @@ function startGame(){
   setNextQuestion()
 }
 
+// makes answers into buttons
 function showQuestion(question){
   questionEl.innerText = question.question
   question.answers.forEach(answer => {
@@ -81,24 +91,28 @@ function showQuestion(question){
 
     if (answer.correct){
       button.dataset.correct = answer.correct
-      console.log(answer.correct)
     }
     button.addEventListener('click', selectAnswer)
     answerButtonsEl.appendChild(button)
   })
 }
 
+// hides start button and resets answer buttons
 function resetState(){
   startButton.classList.add('hide')
   while (answerButtonsEl.firstChild){
     answerButtonsEl.removeChild(answerButtonsEl.firstChild)
   }
 }
+
+// presents next question
 function setNextQuestion(){
   resetState()
   showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
 
+
+// clears status of answers
 function clearStatusClass(element){
   element.classList.remove('correct')
   element.classList.remove('wrong')
@@ -113,18 +127,20 @@ function setStatusClass(element, correct){
   }
 }
 
-//timer
+//sets and updates timer
 function startTimer() {
   timerEl.textContent = timeLeft;
   interval = setInterval(function () {
-      secondsElapsed++;
-      timerEl.textContent = timeLeft - secondsElapsed;
+      timeElapsed++;
+      timerEl.textContent = timeLeft - timeElapsed;
     }, 1000);
 }
+
 //stops timer
 function stopTimer() {
   clearInterval(interval);
 }
+
 
 function scoresPage(){
   questionContainerEl.classList.add('hide')
@@ -148,12 +164,12 @@ function selectAnswer(e){
     correctAnswer.classList.remove('hide')
     wrongAnswer.classList.add('hide')
   }else{
+    timeElapsed += 10
     wrongAnswer.classList.remove('hide')
     correctAnswer.classList.add('hide')
-  // add something to subtract from timer
   }
   
-  if(shuffledQuestions.length > currentQuestionIndex + 1){
+  if(shuffledQuestions.length > currentQuestionIndex + 1){ 
     currentQuestionIndex++
     setNextQuestion()
   } else{
@@ -174,33 +190,29 @@ function showScores(){
 }
 
 goBackBtnEl.addEventListener('click', function(){
-  highScores.classList.add('hide')
-  landingPage.classList.remove('hide')
-  startButton.classList.remove('hide')
+  currentScore = 0;
+  highScores.classList.add('hide');
+  landingPage.classList.remove('hide');
+  startButton.classList.remove('hide');
 })
 
 
 
 submitBtn.addEventListener('click', function(){
-  localStorage.setItem('userInitials', initialsEl)  
-  localStorage.setItem('userScore', currentScore)  
-  var yourScore = localStorage.getItem('userInitials')
-  console.log(yourScore)
+  var yourScore = document.getElementById('initials-input').value + ' ' + currentScore;
 
-  var li = document.createElement('li');
-  li.appendChild(yourScore);
-  document.getElementById('userList').appendChild(li);
-  $('input[type="text"]').val('');
+  console.log(initialsEl)
+  console.log(currentScore)
+  console.log(`your score is ${yourScore}`);
 
-  // var li = document.createElement('li');
-  // var userScores = document.createTextNode(initialsEl);
-  // li.appendChild(userScores);
-  // console.log(JSON.stringify(userScores));
-  // document.getElementById('userList').appendChild(li);
-  // $('input[type="text"]').val('');
+  var li = document.createElement("li");
+  li.innerHTML = yourScore;
+  document.getElementById("userList").appendChild(li);
+
+  $('input[type="text"]').val("");
 })
 
-//Clears saved scores from local storage
+//Clears scores from local storage
 clearBtnEl.addEventListener("click", function () {
-  
+  document.getElementById("userList").innerHTML = '';
 });
