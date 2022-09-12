@@ -12,7 +12,8 @@ const submitBtn = document.getElementById('submitBtn')
 const timerEl = document.getElementById('time')
 const wrongAnswer = document.getElementById('wrong-answer')
 const correctAnswer = document.getElementById('correct-answer')
-var timeLeft = 10
+const finalScore = document.getElementById('score')
+var timeLeft = 60
 var secondsElapsed = 0
 var initialsEl = $('input[name="initials"]');
 var currentScore = 0
@@ -125,6 +126,14 @@ function stopTimer() {
   clearInterval(interval);
 }
 
+function scoresPage(){
+  questionContainerEl.classList.add('hide')
+  correctAnswer.classList.add('hide')
+  wrongAnswer.classList.add('hide')
+  saveScoreEl.classList.remove('hide')
+  finalScore.textContent = currentScore
+}
+
 function selectAnswer(e){
   const selectedButton = e.target
   const correct = selectedButton.dataset.correct
@@ -149,10 +158,7 @@ function selectAnswer(e){
     setNextQuestion()
   } else{
     stopTimer()
-    questionContainerEl.classList.add('hide')
-    correctAnswer.classList.add('hide')
-    wrongAnswer.classList.add('hide')
-    saveScoreEl.classList.remove('hide')
+    setTimeout(scoresPage, 1000)
   }
 }
 
@@ -173,17 +179,28 @@ goBackBtnEl.addEventListener('click', function(){
   startButton.classList.remove('hide')
 })
 
-submitBtn.addEventListener('click', function(){
 
-  $('input[type="text"]').val('');
+
+submitBtn.addEventListener('click', function(){
+  localStorage.setItem('userInitials', initialsEl)  
+  localStorage.setItem('userScore', currentScore)  
+  var yourScore = localStorage.getItem('userInitials')
+  console.log(yourScore)
 
   var li = document.createElement('li');
-  var userScores = document.createTextNode(initialsEl);
-  li.appendChild(userScores);
-  console.log(JSON.stringify(userScores));
+  li.appendChild(yourScore);
   document.getElementById('userList').appendChild(li);
+  $('input[type="text"]').val('');
+
+  // var li = document.createElement('li');
+  // var userScores = document.createTextNode(initialsEl);
+  // li.appendChild(userScores);
+  // console.log(JSON.stringify(userScores));
+  // document.getElementById('userList').appendChild(li);
+  // $('input[type="text"]').val('');
 })
 
-// //Clears saved scores from local storage
-// clearBtnEl.addEventListener("click", function () {
-// });
+//Clears saved scores from local storage
+clearBtnEl.addEventListener("click", function () {
+  
+});
